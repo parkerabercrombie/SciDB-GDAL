@@ -1,3 +1,11 @@
+/**
+ * Logical operator interface for the SciDB GDAL loader.
+ *
+ * Copyright (c) 2014 Parker Abercrombie
+ *
+ * Distributed under the MIT License. (See accompanying file LICENSE
+ * or copy at http://opensource.org/licenses/MIT)
+ */
 
 #include <query/Operator.h>
 

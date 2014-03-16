@@ -7,6 +7,7 @@
  * or copy at http://opensource.org/licenses/MIT)
  */
 
+#include <SciDBAPI.h>
 #include <query/Operator.h>
 
 class LogicalLoadGDAL: public scidb::LogicalOperator
@@ -18,16 +19,20 @@ public:
         ADD_PARAM_CONSTANT("string"); // Raster file path
     }
 
-    ArrayDesc inferSchema(std::vector<ArrayDesc> schemas, boost::shared_ptr<Query> query)
+    scidb::ArrayDesc inferSchema(std::vector<scidb::ArrayDesc> schemas,
+				 boost::shared_ptr<scidb::Query> query)
     {
-        if (s.size() != 0) {
-            throw SYSTEM_EXCEPTION(scidb::SCIDB_SE_INFER_SCHEMA,
-                                   scidb::SCIDB_LE_ARRAY_ALREADY_EXISTS) << "input array";
-        }
+        if (schemas.size() != 0) {
+	    throw SYSTEM_EXCEPTION(scidb::SCIDB_SE_INFER_SCHEMA,
+				   scidb::SCIDB_LE_ARRAY_ALREADY_EXIST) << "input array";
+	}
 
-        return ArrayDesc();
+	return scidb::ArrayDesc();
     }
 
 };
 
-REGISTER_LOGICAL_OPERATOR_FACTORY(LogicalLoadGDAL, "load_gdal");
+namespace scidb
+{
+    REGISTER_LOGICAL_OPERATOR_FACTORY(LogicalLoadGDAL, "load_gdal");
+}

@@ -16,21 +16,24 @@
 // scidb
 #include <query/Operator.h>
 
-class PhysicalLoadGDAL: public PhysicalOperator
+class PhysicalLoadGDAL: public scidb::PhysicalOperator
 {
 public:
-    PhysicalLoadGDAL(const string& logicalName,
-                     const string& physicalName,
-                     const Parameters& parameters,
-                     const ArrayDesc& schema):
-        PhysicalOperator(logicalName, physicalName, parameters, schema);
+  PhysicalLoadGDAL(const std::string& logicalName,
+		   const std::string& physicalName,
+		   const Parameters& parameters,
+		   const scidb::ArrayDesc& schema):
+      scidb::PhysicalOperator(logicalName, physicalName, parameters, schema)
     { }
 
-    boost::shared_ptr<Array> execute(vector< boost::shared_ptr<Array> >& inputArrays,
-                                     boost::shared_ptr<Query> query)
+    boost::shared_ptr<scidb::Array> execute(vector< boost::shared_ptr<scidb::Array> >& inputArrays,
+					    boost::shared_ptr<scidb::Query> query)
     {
-
+      return boost::shared_ptr<scidb::Array>();
     }
 };
 
-REGISTER_LOGICAL_OPERATOR_FACTORY(PhysicalLoadGDAL, "load_gdal");
+namespace scidb
+{
+    REGISTER_PHYSICAL_OPERATOR_FACTORY(PhysicalLoadGDAL, "load_gdal", "load_gdal_impl");
+}

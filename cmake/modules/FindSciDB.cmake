@@ -19,7 +19,19 @@ find_path(SCIDB_INCLUDE_DIR
     /opt
 )
 
+# Find SciDB plugin directory.
+# TODO: can we do this without needing to assume that certain plugin is present?
+find_path(SCIDB_PLUGIN_DIR
+  NAMES
+    libmpi.so
+  PATH_SUFFIXES
+    scidb/$ENV{SCIDB_VER}/lib/scidb/plugins
+  PATHS
+    /opt
+)
+
 set(SCIDB_INCLUDE_DIRS ${SCIDB_INCLUDE_DIR})
+#set(SCIDB_PLUGINS_DIRS ${SCIDB_PLUGIN_DIR})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(SciDB DEFAULT_MSG SCIDB_INCLUDE_DIR)

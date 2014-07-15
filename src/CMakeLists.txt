@@ -25,3 +25,5 @@ set (plugin_src
 )
 add_library(loadgdal SHARED ${plugin_src})
 target_link_libraries(loadgdal ${GDAL_LIBRARIES} ${Boost_LIBRARIES})
+
+install(TARGETS loadgdal DESTINATION ${SCIDB_PLUGIN_DIR})

@@ -32,24 +32,23 @@ public:
     scidb::ArrayDesc inferSchema(std::vector<scidb::ArrayDesc> schemas,
 				 boost::shared_ptr<scidb::Query> query)
     {
-	if (schemas.size() != 0) {
-	    throw SYSTEM_EXCEPTION(scidb::SCIDB_SE_INFER_SCHEMA,
-				   scidb::SCIDB_LE_ARRAY_ALREADY_EXIST) << "input array";
-	}
+        if (schemas.size() != 0) {
+            throw SYSTEM_EXCEPTION(scidb::SCIDB_SE_INFER_SCHEMA,
+                                   scidb::SCIDB_LE_ARRAY_ALREADY_EXIST) << "input array";
+        }
 
-	const std::string &filePath = evaluate(((boost::shared_ptr<OperatorParamLogicalExpression>&)_parameters[0])->getExpression(), query, TID_STRING).getString();
-	std::string hi("hello");
-	LOG4CXX_DEBUG(logger, "XXXXXXXXXXXXXXXX infer schema " << filePath);
+        const std::string &filePath = evaluate(((boost::shared_ptr<OperatorParamLogicalExpression>&)_parameters[0])->getExpression(), query, TID_STRING).getString();
+        LOG4CXX_DEBUG(logger, "XXXXXXXXXXXXXXXX infer schema " << filePath);
 
-	AttributeDesc outputAttribute(0, "instance_status", TID_STRING, 0, 0);
-	Attributes outputAttributes(1, outputAttribute);
+        AttributeDesc outputAttribute(0, "instance_status", TID_STRING, 0, 0);
+        Attributes outputAttributes(1, outputAttribute);
 
-	outputAttributes = addEmptyTagAttribute(outputAttributes);
+        outputAttributes = addEmptyTagAttribute(outputAttributes);
 
-	DimensionDesc outputDimension("instance_no", 0, MAX_COORDINATE, 1, 0);
-	Dimensions outputDimensions(1, outputDimension);
+        DimensionDesc outputDimension("instance_no", 0, MAX_COORDINATE, 1, 0);
+        Dimensions outputDimensions(1, outputDimension);
 
-	return scidb::ArrayDesc("hello_instances", outputAttributes, outputDimensions);
+        return scidb::ArrayDesc("hello_instances", outputAttributes, outputDimensions);
     }
 };
 
